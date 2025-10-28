@@ -59,10 +59,10 @@ export default function AnimatedText() {
   }, []);
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-4 md:gap-6">
       <h1
         ref={nameRef}
-        className="text-7xl font-bold tracking-tight"
+        className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight"
         style={{
           background: 'linear-gradient(135deg, #00d4ff 0%, #0099ff 50%, #0055ff 100%)',
           WebkitBackgroundClip: 'text',
@@ -73,7 +73,7 @@ export default function AnimatedText() {
       >
         Muhammad Haidar Hisbullah
       </h1>
-      <div className="text-3xl font-medium text-cyan-400 h-12 relative overflow-hidden">
+      <div className="text-xl sm:text-2xl md:text-3xl font-medium text-cyan-400 h-8 sm:h-10 md:h-12 relative overflow-hidden">
         <span className="text-white">I am a </span>
         <span
           ref={roleRef}

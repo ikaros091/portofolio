@@ -35,6 +35,7 @@ export default function CertificateSection() {
   const [isMounted, setIsMounted] = useState(false);
   const [allCertificates, setAllCertificates] = useState<Certificate[]>([]);
   const [loading, setLoading] = useState(true);
+  const [activeCertificate, setActiveCertificate] = useState<number | null>(null);
   
   const certificatesPerSlide = 8;
 
@@ -176,15 +177,24 @@ export default function CertificateSection() {
     setCurrentSlide((prev) => (prev < totalSlides - 1 ? prev + 1 : 0));
   };
 
+  // Toggle certificate info on mobile
+  const handleCertificateClick = (certId: number) => {
+    if (activeCertificate === certId) {
+      setActiveCertificate(null);
+    } else {
+      setActiveCertificate(certId);
+    }
+  };
+
   return (
     <section
       id="certificates"
       ref={sectionRef}
-      className="min-h-screen relative py-20 px-6 lg:px-16"
+      className="min-h-screen relative py-12 sm:py-16 md:py-20 px-4 sm:px-6 lg:px-16"
     >
       {/* Neon glow effects */}
-      <div className="absolute top-1/4 left-1/3 w-96 h-96 bg-purple-500/20 rounded-full blur-[120px] animate-pulse" />
-      <div className="absolute bottom-1/4 right-1/3 w-96 h-96 bg-cyan-500/20 rounded-full blur-[120px] animate-pulse delay-700" />
+      <div className="absolute top-1/4 left-1/3 w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 bg-purple-500/20 rounded-full blur-[120px] animate-pulse" />
+      <div className="absolute bottom-1/4 right-1/3 w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 bg-cyan-500/20 rounded-full blur-[120px] animate-pulse delay-700" />
 
       {/* Moving Digital Particles */}
       {isMounted && (
@@ -211,7 +221,7 @@ export default function CertificateSection() {
         {/* Section Title */}
         <h2
           ref={titleRef}
-          className="text-6xl font-bold text-center mb-16"
+          className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-center mb-8 sm:mb-12 md:mb-16"
           style={{
             background: 'linear-gradient(135deg, #a855f7 0%, #0099ff 50%, #00d4ff 100%)',
             WebkitBackgroundClip: 'text',
@@ -223,15 +233,16 @@ export default function CertificateSection() {
           Certificates
         </h2>
 
-        {/* Certificates Grid - 4 columns x 2 rows */}
+        {/* Certificates Grid - Responsive */}
         <div
           ref={sliderRef}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 mb-8 sm:mb-12"
         >
           {getCurrentCertificates().map((cert) => (
             <div
               key={cert.id}
-              className="group relative rounded-xl overflow-hidden border-2 border-cyan-500/30 bg-gradient-to-br from-gray-900/80 to-blue-950/80 backdrop-blur-sm hover:border-cyan-500 transition-all duration-300 cursor-pointer h-[320px]"
+              onClick={() => handleCertificateClick(cert.id)}
+              className="group relative rounded-lg sm:rounded-xl overflow-hidden border-2 border-cyan-500/30 bg-gradient-to-br from-gray-900/80 to-blue-950/80 backdrop-blur-sm hover:border-cyan-500 transition-all duration-300 cursor-pointer h-[280px] sm:h-[300px] md:h-[320px]"
               style={{
                 boxShadow: '0 0 20px rgba(0, 212, 255, 0.1)',
               }}
@@ -247,25 +258,26 @@ export default function CertificateSection() {
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                   />
                 ) : (
-                  <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-purple-900/20 to-cyan-900/20 text-cyan-400/50 text-5xl font-bold">
+                  <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-purple-900/20 to-cyan-900/20 text-cyan-400/50 text-3xl sm:text-4xl md:text-5xl font-bold">
                     {cert.title.split(' ').map(word => word.charAt(0)).slice(0, 2).join('')}
                   </div>
                 )}
               </div>
 
-              {/* Content Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/60 to-transparent flex flex-col justify-end p-5">
+              {/* Content Overlay - Show on tap for mobile, hover for desktop */}
+              <div className={`absolute inset-0 bg-gradient-to-t from-black/95 via-black/60 to-transparent flex flex-col justify-end p-4 sm:p-5 transition-opacity duration-300
+                ${activeCertificate === cert.id ? 'opacity-100' : 'opacity-100 md:opacity-100'}`}>
                 {/* Badge Icon */}
-                <div className="absolute top-4 right-4 w-10 h-10 rounded-full bg-cyan-500/20 border-2 border-cyan-400 flex items-center justify-center">
-                  <svg className="w-5 h-5 text-cyan-400" fill="currentColor" viewBox="0 0 20 20">
+                <div className="absolute top-3 right-3 sm:top-4 sm:right-4 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-cyan-500/20 border-2 border-cyan-400 flex items-center justify-center">
+                  <svg className="w-4 h-4 sm:w-5 sm:h-5 text-cyan-400" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                   </svg>
                 </div>
 
-                <h3 className="text-lg font-bold text-cyan-400 mb-2 line-clamp-2 group-hover:text-cyan-300 transition-colors">
+                <h3 className="text-base sm:text-lg font-bold text-cyan-400 mb-1.5 sm:mb-2 line-clamp-2 group-hover:text-cyan-300 transition-colors">
                   {cert.title}
                 </h3>
-                <p className="text-gray-400 text-sm mb-1">
+                <p className="text-gray-400 text-xs sm:text-sm mb-1">
                   {cert.issuer}
                 </p>
                 <div className="flex items-center justify-between">
@@ -275,7 +287,7 @@ export default function CertificateSection() {
                       href={cert.credentialUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-cyan-400 text-xs hover:text-cyan-300 transition-colors flex items-center gap-1 opacity-0 group-hover:opacity-100"
+                      className="text-cyan-400 text-xs hover:text-cyan-300 transition-colors flex items-center gap-1"
                       onClick={(e) => e.stopPropagation()}
                     >
                       View
@@ -288,38 +300,38 @@ export default function CertificateSection() {
               </div>
 
               {/* Corner decorations */}
-              <div className="absolute top-2 left-2 w-4 h-4 border-t-2 border-l-2 border-cyan-400/50 group-hover:border-cyan-400 transition-colors" />
-              <div className="absolute top-2 right-2 w-4 h-4 border-t-2 border-r-2 border-cyan-400/50 group-hover:border-cyan-400 transition-colors" />
-              <div className="absolute bottom-2 left-2 w-4 h-4 border-b-2 border-l-2 border-cyan-400/50 group-hover:border-cyan-400 transition-colors" />
-              <div className="absolute bottom-2 right-2 w-4 h-4 border-b-2 border-r-2 border-cyan-400/50 group-hover:border-cyan-400 transition-colors" />
+              <div className="absolute top-1 left-1 sm:top-2 sm:left-2 w-3 h-3 sm:w-4 sm:h-4 border-t-2 border-l-2 border-cyan-400/50 group-hover:border-cyan-400 transition-colors" />
+              <div className="absolute top-1 right-1 sm:top-2 sm:right-2 w-3 h-3 sm:w-4 sm:h-4 border-t-2 border-r-2 border-cyan-400/50 group-hover:border-cyan-400 transition-colors" />
+              <div className="absolute bottom-1 left-1 sm:bottom-2 sm:left-2 w-3 h-3 sm:w-4 sm:h-4 border-b-2 border-l-2 border-cyan-400/50 group-hover:border-cyan-400 transition-colors" />
+              <div className="absolute bottom-1 right-1 sm:bottom-2 sm:right-2 w-3 h-3 sm:w-4 sm:h-4 border-b-2 border-r-2 border-cyan-400/50 group-hover:border-cyan-400 transition-colors" />
             </div>
           ))}
         </div>
 
         {/* Slider Navigation */}
         {totalSlides > 1 && (
-          <div className="flex items-center justify-center gap-6">
+          <div className="flex items-center justify-center gap-4 sm:gap-6">
             {/* Previous Button */}
             <button
               onClick={handlePrevSlide}
-              className="w-12 h-12 rounded-full border-2 border-cyan-500 text-cyan-400 flex items-center justify-center hover:bg-cyan-500/20 hover:border-cyan-400 transition-all duration-300 group"
+              className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border-2 border-cyan-500 text-cyan-400 flex items-center justify-center hover:bg-cyan-500/20 hover:border-cyan-400 transition-all duration-300 group"
               aria-label="Previous slide"
             >
-              <svg className="w-6 h-6 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-5 h-5 sm:w-6 sm:h-6 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
               </svg>
             </button>
 
             {/* Slide Indicators */}
-            <div className="flex gap-3">
+            <div className="flex gap-2 sm:gap-3">
               {Array.from({ length: totalSlides }, (_, i) => (
                 <button
                   key={i}
                   onClick={() => setCurrentSlide(i)}
                   className={`transition-all duration-300 ${
                     currentSlide === i
-                      ? 'w-12 h-3 bg-cyan-500 rounded-full shadow-[0_0_15px_rgba(0,212,255,0.6)]'
-                      : 'w-3 h-3 bg-gray-600 rounded-full hover:bg-cyan-500/50'
+                      ? 'w-8 sm:w-12 h-2.5 sm:h-3 bg-cyan-500 rounded-full shadow-[0_0_15px_rgba(0,212,255,0.6)]'
+                      : 'w-2.5 sm:w-3 h-2.5 sm:h-3 bg-gray-600 rounded-full hover:bg-cyan-500/50'
                   }`}
                   aria-label={`Go to slide ${i + 1}`}
                 />
@@ -329,10 +341,10 @@ export default function CertificateSection() {
             {/* Next Button */}
             <button
               onClick={handleNextSlide}
-              className="w-12 h-12 rounded-full border-2 border-cyan-500 text-cyan-400 flex items-center justify-center hover:bg-cyan-500/20 hover:border-cyan-400 transition-all duration-300 group"
+              className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border-2 border-cyan-500 text-cyan-400 flex items-center justify-center hover:bg-cyan-500/20 hover:border-cyan-400 transition-all duration-300 group"
               aria-label="Next slide"
             >
-              <svg className="w-6 h-6 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-5 h-5 sm:w-6 sm:h-6 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
               </svg>
             </button>

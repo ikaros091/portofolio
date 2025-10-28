@@ -125,19 +125,19 @@ export default function Home() {
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan-500/30 rounded-full blur-[120px] animate-pulse" />
         <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-500/20 rounded-full blur-[120px] animate-pulse delay-700" />
 
-        <main className="relative z-10 flex min-h-screen items-center justify-center px-6 lg:px-16">
-          <div className="w-full max-w-7xl grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <main className="relative z-10 flex min-h-screen items-center justify-center px-4 sm:px-6 lg:px-16 pt-16 md:pt-0">
+          <div className="w-full max-w-7xl grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
             {/* Left side - Text Content */}
             <div
               ref={heroContentRef}
-              className="flex flex-col gap-8 order-2 lg:order-1"
+              className="flex flex-col gap-4 sm:gap-6 md:gap-8 order-2 lg:order-1"
             >
               <AnimatedText />
 
               {/* Additional description */}
               <p
                 ref={descRef}
-                className="text-lg text-gray-300 max-w-xl leading-relaxed"
+                className="text-sm sm:text-base lg:text-lg text-gray-300 max-w-xl leading-relaxed"
                 style={{ opacity: 0 }}
               >
                 Crafting digital experiences with cutting-edge technologies.
@@ -148,12 +148,12 @@ export default function Home() {
               {/* CTA Buttons */}
               <div
                 ref={buttonsRef}
-                className="flex gap-4 flex-wrap"
+                className="flex gap-3 sm:gap-4 flex-wrap"
                 style={{ opacity: 0 }}
               >
                 <button
                   onClick={scrollToProjects}
-                  className="px-8 py-3 bg-cyan-500 text-white font-semibold rounded-lg
+                  className="px-6 sm:px-8 py-2.5 sm:py-3 text-sm sm:text-base bg-cyan-500 text-white font-semibold rounded-lg
                     hover:bg-cyan-600 transition-all duration-300 
                     shadow-[0_0_20px_rgba(0,212,255,0.5)] hover:shadow-[0_0_30px_rgba(0,212,255,0.8)]"
                 >
@@ -161,7 +161,7 @@ export default function Home() {
                 </button>
                 <Link
                   href="https://mail.google.com/mail/u/0/?fs=1&tf=cm&source=mailto&to=mohammadhaidarhisbullah@gmail.com"
-                  className="px-8 py-3 border-2 border-cyan-500 text-cyan-400 font-semibold rounded-lg
+                  className="px-6 sm:px-8 py-2.5 sm:py-3 text-sm sm:text-base border-2 border-cyan-500 text-cyan-400 font-semibold rounded-lg
                     hover:bg-cyan-500/10 transition-all duration-300"
                 >
                   Contact Me
@@ -171,32 +171,32 @@ export default function Home() {
               {/* Social Links */}
               <div
                 ref={socialsRef}
-                className="flex gap-6 items-center"
+                className="flex gap-4 sm:gap-6 items-center"
                 style={{ opacity: 0 }}
               >
                 <Link
                   href="https://github.com/ikaros091"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-12 h-12 rounded-full border-2 border-cyan-500/50 flex items-center justify-center hover:border-cyan-500 hover:bg-cyan-500/10 transition-all cursor-pointer"
+                  className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border-2 border-cyan-500/50 flex items-center justify-center hover:border-cyan-500 hover:bg-cyan-500/10 transition-all cursor-pointer"
                 >
-                  <GrGithub className="text-cyan-400" size="24px" />
+                  <GrGithub className="text-cyan-400" size="20px" />
                 </Link>
                 <Link
                   href="www.linkedin.com/in/mohammad-haidar-hisbullah-901922298"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-12 h-12 rounded-full border-2 border-cyan-500/50 flex items-center justify-center hover:border-cyan-500 hover:bg-cyan-500/10 transition-all cursor-pointer"
+                  className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border-2 border-cyan-500/50 flex items-center justify-center hover:border-cyan-500 hover:bg-cyan-500/10 transition-all cursor-pointer"
                 >
-                  <GrLinkedinOption className="text-cyan-400" size="24px" />
+                  <GrLinkedinOption className="text-cyan-400" size="20px" />
                 </Link>
                 <Link
                   href="https://wa.link/mah57z"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-12 h-12 rounded-full border-2 border-cyan-500/50 flex items-center justify-center hover:border-cyan-500 hover:bg-cyan-500/10 transition-all cursor-pointer"
+                  className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border-2 border-cyan-500/50 flex items-center justify-center hover:border-cyan-500 hover:bg-cyan-500/10 transition-all cursor-pointer"
                 >
-                  <SiWhatsapp className="text-cyan-400" size="24px" />
+                  <SiWhatsapp className="text-cyan-400" size="20px" />
                 </Link>
               </div>
             </div>
@@ -204,7 +204,7 @@ export default function Home() {
             {/* Right side - 3D Scene */}
             <div
               ref={sceneRef}
-              className="relative h-[500px] lg:h-[600px] order-1 lg:order-2"
+              className="relative h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] order-1 lg:order-2"
               style={{ opacity: 0 }}
             >
               <div className="absolute inset-0 rounded-2xl overflow-hidden">
